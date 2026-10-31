@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Heart Cafe and Bakery - Fresh Specialty Coffee & Artisanal Pastries</title>
+  <meta name="description" content="Warm Heart Cafe and Bakery - Handcrafted specialty coffee and fresh homemade pastries baked daily with warmth and love.">
+  <!-- Link to the shared stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="site-header" id="main-header">
+    <div class="container navbar">
+      <!-- 1. Logo / Brand Name -->
+      <a href="#home" class="logo" id="site-logo">Warm Heart Cafe and Bakery</a>
+
+      <!-- Hamburger Button (Mobile screens below 768px) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <!-- 2. Navigation Links (Smooth Anchor Links) -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="active" id="nav-home">Home</a></li>
+        <li><a href="#about" id="nav-about">About</a></li>
+        <li><a href="#menu" id="nav-menu">Menu</a></li>
+        <li><a href="#gallery" id="nav-gallery">Gallery</a></li>
+        <li><a href="#contact" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT (SEAMLESS SINGLE-PAGE) ==================== -->
+  <main id="main-content">
+    <div class="container">
+
+      <!-- ==================== 1. HOME SECTION ==================== -->
+      <section class="landing-section" id="home">
+        <!-- Hero Section -->
+        <div class="hero" id="home-hero">
+          <h1>Welcome to Warm Heart Cafe and Bakery</h1>
+          <p>We brew freshly roasted specialty coffee and bake delicious handcrafted homemade pastries daily to warm your heart.</p>
+          <div class="hero-cta">
+            <a href="#menu" class="btn" id="btn-hero-menu">View Our Menu</a>
+            <a href="#contact" class="btn btn-secondary" id="btn-hero-contact">Visit Us</a>
+          </div>
+        </div>
+
+        <!-- Highlight Cards Section -->
+        <div class="grid-3" id="highlight-cards-grid">
+          <!-- Card 1: Fresh Coffee -->
+          <div class="card" id="card-fresh-coffee">
+            <div class="card-icon" aria-hidden="true">☕</div>
+            <h3>Fresh Coffee</h3>
+            <p>Carefully selected, freshly roasted beans brewed to perfection for rich espresso, velvety lattes, and slow pour-overs.</p>
+          </div>
+
+          <!-- Card 2: Homemade Pastries -->
+          <div class="card" id="card-homemade-pastries">
+            <div class="card-icon" aria-hidden="true">🥐</div>
+            <h3>Homemade Pastries</h3>
+            <p>Golden croissants, warm cinnamon rolls, and artisan baked goods crafted from scratch in our oven every morning.</p>
+          </div>
+
+          <!-- Card 3: Cozy Atmosphere -->
+          <div class="card" id="card-cozy-atmosphere">
+            <div class="card-icon" aria-hidden="true">❤️</div>
+            <h3>Cozy Atmosphere</h3>
+            <p>A warm, relaxing neighborhood space designed to welcome you, your friends, and your family with hospitality.</p>
+          </div>
+        </div>
+
+        <!-- Operating Hours Quick Preview -->
+        <div class="hours-section" id="operating-hours">
+          <h2>Operating Hours</h2>
+          <div class="hours-card">
+            <p><strong>Monday–Friday:</strong> 7am–8pm</p>
+            <p><strong>Saturday–Sunday:</strong> 8am–6pm</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. ABOUT SECTION ==================== -->
+      <section class="landing-section" id="about">
+        <!-- Page Header -->
+        <div class="page-header" id="about-header">
+          <h2>About Warm Heart Cafe and Bakery</h2>
+          <p>Our story, our mission, and the dedicated team behind every cup and fresh bake.</p>
+        </div>
+
+        <!-- Story & Mission Section -->
+        <div class="card" id="card-our-story" style="max-width: 800px; margin: 0 auto 3.5rem;">
+          <span class="card-badge">Our Story & Mission</span>
+          <h3>Brewing Warmth and Baking Daily with Heart</h3>
+          <p>Warm Heart Cafe and Bakery was founded with a simple, genuine mission: to create a warm, welcoming community space where people can slow down, connect, and enjoy handcrafted specialty coffee and wholesome homemade pastries made from scratch every single day.</p>
+          <br>
+          <p>We source ethically harvested, single-origin coffee beans and bake with honest, natural ingredients. Whether you are grabbing your morning espresso, sharing an artisan pastry with friends, or finding a quiet corner to read, our goal is to bring comfort and warmth to your daily routine.</p>
+        </div>
+
+        <!-- Team Section -->
+        <div class="page-header" id="team-header">
+          <h2>Our Team</h2>
+          <p>The passionate professionals bringing warmth and quality to every visit</p>
+        </div>
+
+        <div class="grid-3" id="team-grid">
+          <!-- Team Member 1: Jubair Ahmad -->
+          <div class="card team-card" id="team-jubair-ahmad">
+            <img src="assets/owner.jpg" alt="Jubair Ahmad - Owner & Founder" class="team-img" loading="lazy">
+            <h3>Jubair Ahmad</h3>
+            <p class="team-role">Owner & Founder</p>
+            <p>Founder and passionate coffee specialist leading the team with a commitment to quality coffee, daily fresh baking, and warm hospitality.</p>
+          </div>
+
+          <!-- Team Member 2: Ashraf -->
+          <div class="card team-card" id="team-ashraf">
+            <img src="assets/chef.jpg" alt="Ashraf - Head Chef" class="team-img" loading="lazy">
+            <h3>Ashraf</h3>
+            <p class="team-role">Head Chef &amp; Pastry Specialist</p>
+            <p>Master baker crafting fresh croissants, artisan pastries, and handmade bakery items with authentic techniques every morning.</p>
+          </div>
+
+          <!-- Team Member 3: Imran -->
+          <div class="card team-card" id="team-imran">
+            <img src="assets/manager.jpg" alt="Imran - Manager" class="team-img" loading="lazy">
+            <h3>Imran</h3>
+            <p class="team-role">Manager</p>
+            <p>Dedicated to ensuring a cozy, welcoming atmosphere and delivering exceptional customer service to every guest.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. MENU SECTION ==================== -->
+      <section class="landing-section" id="menu">
+        <!-- Page Header -->
+        <div class="page-header" id="menu-header">
+          <h2>Our Menu</h2>
+          <p>Handcrafted specialty coffee and fresh homemade pastries baked daily</p>
+        </div>
+
+        <!-- Section 1: Drinks -->
+        <div class="menu-category" id="menu-drinks-section">
+          <h3 class="category-title">☕ Drinks</h3>
+          <div class="grid-3" id="drinks-menu-grid">
+            
+            <div class="card menu-card" id="item-espresso">
+              <div class="menu-card-header">
+                <h3>Espresso</h3>
+                <span class="menu-price">$3.50</span>
+              </div>
+              <p>Rich and bold</p>
+            </div>
+
+            <div class="card menu-card" id="item-latte">
+              <div class="menu-card-header">
+                <h3>Latte</h3>
+                <span class="menu-price">$4.50</span>
+              </div>
+              <p>Smooth with steamed milk</p>
+            </div>
+
+            <div class="card menu-card" id="item-cappuccino">
+              <div class="menu-card-header">
+                <h3>Cappuccino</h3>
+                <span class="menu-price">$4.00</span>
+              </div>
+              <p>Perfect foam balance</p>
+            </div>
+
+            <div class="card menu-card" id="item-hot-chocolate">
+              <div class="menu-card-header">
+                <h3>Hot Chocolate</h3>
+                <span class="menu-price">$4.00</span>
+              </div>
+              <p>Rich and creamy</p>
+            </div>
+
+            <div class="card menu-card" id="item-iced-coffee">
+              <div class="menu-card-header">
+                <h3>Iced Coffee</h3>
+                <span class="menu-price">$3.50</span>
+              </div>
+              <p>Refreshing cold brew</p>
+            </div>
+
+            <div class="card menu-card" id="item-chai-latte">
+              <div class="menu-card-header">
+                <h3>Chai Latte</h3>
+                <span class="menu-price">$4.50</span>
+              </div>
+              <p>Spiced tea blend</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section 2: Pastries -->
+        <div class="menu-category" id="menu-pastries-section">
+          <h3 class="category-title">🥐 Pastries</h3>
+          <div class="grid-3" id="pastries-menu-grid">
+            
+            <div class="card menu-card" id="item-croissant">
+              <div class="menu-card-header">
+                <h3>Croissant</h3>
+                <span class="menu-price">$3.00</span>
+              </div>
+              <p>Flaky and buttery</p>
+            </div>
+
+            <div class="card menu-card" id="item-blueberry-muffin">
+              <div class="menu-card-header">
+                <h3>Blueberry Muffin</h3>
+                <span class="menu-price">$3.50</span>
+              </div>
+              <p>Bursting with berries</p>
+            </div>
+
+            <div class="card menu-card" id="item-cinnamon-roll">
+              <div class="menu-card-header">
+                <h3>Cinnamon Roll</h3>
+                <span class="menu-price">$4.00</span>
+              </div>
+              <p>Sweet and gooey</p>
+            </div>
+
+            <div class="card menu-card" id="item-chocolate-chip-cookie">
+              <div class="menu-card-header">
+                <h3>Chocolate Chip Cookie</h3>
+                <span class="menu-price">$2.50</span>
+              </div>
+              <p>Classic favorite</p>
+            </div>
+
+            <div class="card menu-card" id="item-scone">
+              <div class="menu-card-header">
+                <h3>Scone</h3>
+                <span class="menu-price">$3.00</span>
+              </div>
+              <p>Perfect with tea</p>
+            </div>
+
+            <div class="card menu-card" id="item-danish-pastry">
+              <div class="menu-card-header">
+                <h3>Danish Pastry</h3>
+                <span class="menu-price">$3.50</span>
+              </div>
+              <p>Fruity and sweet</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. GALLERY SECTION ==================== -->
+      <section class="landing-section" id="gallery">
+        <!-- Page Header -->
+        <div class="page-header" id="gallery-header">
+          <h2>Photo Gallery</h2>
+          <p>A peek inside our kitchen, barista counter, and warm bakery display</p>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-container">
+          
+          <!-- 1. Coffee Cup -->
+          <div class="gallery-item" id="gallery-img-1">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Coffee Cup" loading="lazy">
+            <div class="gallery-caption">Coffee Cup</div>
+          </div>
+
+          <!-- 2. Coffee Shop -->
+          <div class="gallery-item" id="gallery-img-2">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee Shop" loading="lazy">
+            <div class="gallery-caption">Coffee Shop</div>
+          </div>
+
+          <!-- 3. Pastries -->
+          <div class="gallery-item" id="gallery-img-3">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Fresh Pastries" loading="lazy">
+            <div class="gallery-caption">Fresh Pastries</div>
+          </div>
+
+          <!-- 4. Coffee Beans -->
+          <div class="gallery-item" id="gallery-img-4">
+            <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=800&q=80" alt="Coffee Beans" loading="lazy">
+            <div class="gallery-caption">Coffee Beans</div>
+          </div>
+
+          <!-- 5. Coffee Shop Interior -->
+          <div class="gallery-item" id="gallery-img-5">
+            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Interior" loading="lazy">
+            <div class="gallery-caption">Coffee Shop Interior</div>
+          </div>
+
+          <!-- 6. Latte Art -->
+          <div class="gallery-item" id="gallery-img-6">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Latte Art" loading="lazy">
+            <div class="gallery-caption">Latte Art</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== 5. CONTACT SECTION ==================== -->
+      <section class="landing-section" id="contact">
+        <!-- Page Header -->
+        <div class="page-header" id="contact-header">
+          <h2>Visit & Contact Us</h2>
+          <p>Drop by for a warm cup or send us a note for custom cakes and catering</p>
+        </div>
+
+        <!-- Contact Info & Form Grid -->
+        <div class="contact-wrapper" id="contact-section">
+          
+          <!-- Left: Shop Info & Hours -->
+          <div class="contact-info" id="shop-details">
+            <div class="contact-info-block">
+              <h4>📍 Our Location</h4>
+              <p>Shorifpur, Ashugonj, B-baria</p>
+            </div>
+
+            <div class="contact-info-block">
+              <h4>⏰ Opening Hours</h4>
+              <p><strong>Monday–Friday:</strong> 7am–8pm</p>
+              <p><strong>Saturday–Sunday:</strong> 8am–6pm</p>
+            </div>
+
+            <div class="contact-info-block">
+              <h4>📞 Contact Direct</h4>
+              <p>Mobile: 01984787625</p>
+              <p>Email: sbma4042@gmail.com</p>
+            </div>
+
+            <div class="contact-info-block">
+              <h4>🥐 Special Orders</h4>
+              <p>We accept pre-orders for whole sourdough loaves, birthday cakes, and catering boxes with 48 hours notice.</p>
+            </div>
+          </div>
+
+          <!-- Right: Message Form -->
+          <div class="contact-form" id="form-container">
+            <h3 style="font-family: var(--font-heading); color: var(--primary-dark); margin-bottom: 1.25rem;">Send Us a Message</h3>
+            
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="user-name">Your Full Name</label>
+                <input type="text" id="user-name" name="name" placeholder="e.g. Jane Doe" required>
+              </div>
+
+              <div class="form-group">
+                <label for="user-email">Email Address</label>
+                <input type="email" id="user-email" name="email" placeholder="e.g. jane@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="user-subject">Inquiry Type</label>
+                <select id="user-subject" name="subject">
+                  <option value="general">General Question</option>
+                  <option value="order">Custom Bakery Order / Cake</option>
+                  <option value="catering">Event Catering</option>
+                  <option value="feedback">Feedback</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="user-message">Your Message</label>
+                <textarea id="user-message" name="message" rows="4" placeholder="Tell us what you'd like to ask or order..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn" id="btn-submit-message">Send Message</button>
+              
+              <!-- Success notification area -->
+              <div class="form-message" id="form-message" role="alert"></div>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Google Map Section -->
+        <div class="map-section" id="location-map">
+          <h3 class="map-heading">Find Us on the Map</h3>
+          <div class="map-container">
+            <iframe 
+              title="Warm Heart Cafe and Bakery Location Map"
+              src="https://maps.google.com/maps?q=Shorifpur,+Ashugonj,+B-baria,+Bangladesh&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+              width="100%" 
+              height="360" 
+              style="border:0; display: block;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Warm Heart Cafe and Bakery</h3>
+          <p>Your neighborhood corner for fresh brew and daily baked goods.</p>
+        </div>
+
+        <!-- Page Navigation Links (Anchors) -->
+        <ul class="footer-links" aria-label="Footer navigation">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Media Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <span>Follow Us:</span>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Warm Heart Cafe and Bakery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>

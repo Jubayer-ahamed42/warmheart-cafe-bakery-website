@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Heart Cafe and Bakery - About Us</title>
+  <!-- Link to the shared stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="refresh" content="0; url=index.html#about">
+  <script>
+    // Smooth redirect to the unified single-page section
+    window.location.replace("index.html#about");
+  </script>
+</head>
+<body>
+
+  <!-- Notice Banner for non-redirected clients -->
+  <div style="background-color: #f3ece3; padding: 0.75rem 1rem; text-align: center; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); color: var(--primary-dark);">
+    Warm Heart Cafe is now a seamless one-page experience! <a href="index.html#about" style="color: var(--primary-color); font-weight: bold; text-decoration: underline;">Click here to view on the main page</a>.
+  </div>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="site-header" id="main-header">
+    <div class="container navbar">
+      <!-- 1. Logo / Brand Name -->
+      <a href="index.html#home" class="logo" id="site-logo">Warm Heart Cafe and Bakery</a>
+
+      <!-- Hamburger Button (Mobile screens below 768px) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <!-- 2. Navigation Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" class="active" id="nav-about">About</a></li>
+        <li><a href="index.html#menu" id="nav-menu">Menu</a></li>
+        <li><a href="index.html#gallery" id="nav-gallery">Gallery</a></li>
+        <li><a href="index.html#contact" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <section class="page-header" id="about-header">
+        <h1>About Warm Heart Cafe and Bakery</h1>
+        <p>Our story, our mission, and the dedicated team behind every cup and fresh bake.</p>
+      </section>
+
+      <!-- Story & Mission Section -->
+      <div class="card" id="card-our-story" style="max-width: 800px; margin: 0 auto 3.5rem;">
+        <span class="card-badge">Our Story & Mission</span>
+        <h3>Brewing Warmth and Baking Daily with Heart</h3>
+        <p>Warm Heart Cafe and Bakery was founded with a simple, genuine mission: to create a warm, welcoming community space where people can slow down, connect, and enjoy handcrafted specialty coffee and wholesome homemade pastries made from scratch every single day.</p>
+        <br>
+        <p>We source ethically harvested, single-origin coffee beans and bake with honest, natural ingredients. Whether you are grabbing your morning espresso, sharing an artisan pastry with friends, or finding a quiet corner to read, our goal is to bring comfort and warmth to your daily routine.</p>
+      </div>
+
+      <!-- Team Section -->
+      <section class="page-header" id="team-header">
+        <h2>Our Team</h2>
+        <p>The passionate professionals bringing warmth and quality to every visit</p>
+      </section>
+
+      <div class="grid-3" id="team-grid">
+        <!-- Team Member 1: Jubair Ahmad -->
+        <div class="card team-card" id="team-jubair-ahmad">
+          <img src="assets/owner.jpg" alt="Jubair Ahmad - Owner & Founder" class="team-img" loading="lazy">
+          <h3>Jubair Ahmad</h3>
+          <p class="team-role">Owner & Founder</p>
+          <p>Founder and passionate coffee specialist leading the team with a commitment to quality coffee, daily fresh baking, and warm hospitality.</p>
+        </div>
+
+        <!-- Team Member 2: Ashraf -->
+        <div class="card team-card" id="team-ashraf">
+          <img src="assets/chef.jpg" alt="Ashraf - Head Chef" class="team-img" loading="lazy">
+          <h3>Ashraf</h3>
+          <p class="team-role">Head Chef &amp; Pastry Specialist</p>
+          <p>Master baker crafting fresh croissants, artisan pastries, and handmade bakery items with authentic techniques every morning.</p>
+        </div>
+
+        <!-- Team Member 3: Imran -->
+        <div class="card team-card" id="team-imran">
+          <img src="assets/manager.jpg" alt="Imran - Manager" class="team-img" loading="lazy">
+          <h3>Imran</h3>
+          <p class="team-role">Manager</p>
+          <p>Dedicated to ensuring a cozy, welcoming atmosphere and delivering exceptional customer service to every guest.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Warm Heart Cafe and Bakery</h3>
+          <p>Your neighborhood corner for fresh brew and daily baked goods.</p>
+        </div>
+
+        <!-- Page Navigation Links -->
+        <ul class="footer-links" aria-label="Footer navigation">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#menu">Menu</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Media Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <span>Follow Us:</span>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Warm Heart Cafe and Bakery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>

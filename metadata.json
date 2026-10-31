@@ -1,0 +1,6 @@
+{
+  "name": "Warm Heart Cafe and Bakery",
+  "description": "A beginner-friendly 5-page website for Warm Heart Cafe and Bakery using pure HTML, CSS, and Vanilla JavaScript.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

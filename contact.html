@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Heart Cafe and Bakery - Contact Us</title>
+  <!-- Link to the shared stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="refresh" content="0; url=index.html#contact">
+  <script>
+    // Smooth redirect to the unified single-page section
+    window.location.replace("index.html#contact");
+  </script>
+</head>
+<body>
+
+  <!-- Notice Banner for non-redirected clients -->
+  <div style="background-color: #f3ece3; padding: 0.75rem 1rem; text-align: center; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); color: var(--primary-dark);">
+    Warm Heart Cafe is now a seamless one-page experience! <a href="index.html#contact" style="color: var(--primary-color); font-weight: bold; text-decoration: underline;">Click here to view on the main page</a>.
+  </div>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="site-header" id="main-header">
+    <div class="container navbar">
+      <!-- 1. Logo / Brand Name -->
+      <a href="index.html#home" class="logo" id="site-logo">Warm Heart Cafe and Bakery</a>
+
+      <!-- Hamburger Button (Mobile screens below 768px) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <!-- 2. Navigation Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" id="nav-about">About</a></li>
+        <li><a href="index.html#menu" id="nav-menu">Menu</a></li>
+        <li><a href="index.html#gallery" id="nav-gallery">Gallery</a></li>
+        <li><a href="index.html#contact" class="active" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <section class="page-header" id="contact-header">
+        <h1>Visit & Contact Us</h1>
+        <p>Drop by for a warm cup or send us a note for custom cakes and catering</p>
+      </section>
+
+      <!-- Contact Info & Form Grid -->
+      <div class="contact-wrapper" id="contact-section">
+        
+        <!-- Left: Shop Info & Hours -->
+        <div class="contact-info" id="shop-details">
+          <div class="contact-info-block">
+            <h4>📍 Our Location</h4>
+            <p>Shorifpur, Ashugonj, B-baria</p>
+          </div>
+
+          <div class="contact-info-block">
+            <h4>⏰ Opening Hours</h4>
+            <p><strong>Monday–Friday:</strong> 7am–8pm</p>
+            <p><strong>Saturday–Sunday:</strong> 8am–6pm</p>
+          </div>
+
+          <div class="contact-info-block">
+            <h4>📞 Contact Direct</h4>
+            <p>Mobile: 01984787625</p>
+            <p>Email: sbma4042@gmail.com</p>
+          </div>
+
+          <div class="contact-info-block">
+            <h4>🥐 Special Orders</h4>
+            <p>We accept pre-orders for whole sourdough loaves, birthday cakes, and catering boxes with 48 hours notice.</p>
+          </div>
+        </div>
+
+        <!-- Right: Message Form -->
+        <div class="contact-form" id="form-container">
+          <h3 style="font-family: var(--font-heading); color: var(--primary-dark); margin-bottom: 1.25rem;">Send Us a Message</h3>
+          
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="user-name">Your Full Name</label>
+              <input type="text" id="user-name" name="name" placeholder="e.g. Jane Doe" required>
+            </div>
+
+            <div class="form-group">
+              <label for="user-email">Email Address</label>
+              <input type="email" id="user-email" name="email" placeholder="e.g. jane@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="user-subject">Inquiry Type</label>
+              <select id="user-subject" name="subject">
+                <option value="general">General Question</option>
+                <option value="order">Custom Bakery Order / Cake</option>
+                <option value="catering">Event Catering</option>
+                <option value="feedback">Feedback</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="user-message">Your Message</label>
+              <textarea id="user-message" name="message" rows="4" placeholder="Tell us what you'd like to ask or order..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn" id="btn-submit-message">Send Message</button>
+            
+            <!-- Success notification area -->
+            <div class="form-message" id="form-message" role="alert"></div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Google Map Section -->
+      <section class="map-section" id="location-map">
+        <h3 class="map-heading">Find Us on the Map</h3>
+        <div class="map-container">
+          <iframe 
+            title="Warm Heart Cafe and Bakery Location Map"
+            src="https://maps.google.com/maps?q=Shorifpur,+Ashugonj,+B-baria,+Bangladesh&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+            width="100%" 
+            height="360" 
+            style="border:0; display: block;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Warm Heart Cafe and Bakery</h3>
+          <p>Your neighborhood corner for fresh brew and daily baked goods.</p>
+        </div>
+
+        <!-- Page Navigation Links -->
+        <ul class="footer-links" aria-label="Footer navigation">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#menu">Menu</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Media Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <span>Follow Us:</span>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Warm Heart Cafe and Bakery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>

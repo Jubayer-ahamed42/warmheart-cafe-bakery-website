@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Heart Cafe and Bakery - Menu</title>
+  <!-- Link to the shared stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="refresh" content="0; url=index.html#menu">
+  <script>
+    // Smooth redirect to the unified single-page section
+    window.location.replace("index.html#menu");
+  </script>
+</head>
+<body>
+
+  <!-- Notice Banner for non-redirected clients -->
+  <div style="background-color: #f3ece3; padding: 0.75rem 1rem; text-align: center; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); color: var(--primary-dark);">
+    Warm Heart Cafe is now a seamless one-page experience! <a href="index.html#menu" style="color: var(--primary-color); font-weight: bold; text-decoration: underline;">Click here to view on the main page</a>.
+  </div>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="site-header" id="main-header">
+    <div class="container navbar">
+      <!-- 1. Logo / Brand Name -->
+      <a href="index.html#home" class="logo" id="site-logo">Warm Heart Cafe and Bakery</a>
+
+      <!-- Hamburger Button (Mobile screens below 768px) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <!-- 2. Navigation Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" id="nav-about">About</a></li>
+        <li><a href="index.html#menu" class="active" id="nav-menu">Menu</a></li>
+        <li><a href="index.html#gallery" id="nav-gallery">Gallery</a></li>
+        <li><a href="index.html#contact" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <section class="page-header" id="menu-header">
+        <h1>Our Menu</h1>
+        <p>Handcrafted specialty coffee and fresh homemade pastries baked daily</p>
+      </section>
+
+      <!-- Section 1: Drinks -->
+      <section class="menu-category" id="menu-drinks-section">
+        <h2>☕ Drinks</h2>
+        <div class="grid-3" id="drinks-menu-grid">
+          
+          <div class="card menu-card" id="item-espresso">
+            <div class="menu-card-header">
+              <h3>Espresso</h3>
+              <span class="menu-price">$3.50</span>
+            </div>
+            <p>Rich and bold</p>
+          </div>
+
+          <div class="card menu-card" id="item-latte">
+            <div class="menu-card-header">
+              <h3>Latte</h3>
+              <span class="menu-price">$4.50</span>
+            </div>
+            <p>Smooth with steamed milk</p>
+          </div>
+
+          <div class="card menu-card" id="item-cappuccino">
+            <div class="menu-card-header">
+              <h3>Cappuccino</h3>
+              <span class="menu-price">$4.00</span>
+            </div>
+            <p>Perfect foam balance</p>
+          </div>
+
+          <div class="card menu-card" id="item-hot-chocolate">
+            <div class="menu-card-header">
+              <h3>Hot Chocolate</h3>
+              <span class="menu-price">$4.00</span>
+            </div>
+            <p>Rich and creamy</p>
+          </div>
+
+          <div class="card menu-card" id="item-iced-coffee">
+            <div class="menu-card-header">
+              <h3>Iced Coffee</h3>
+              <span class="menu-price">$3.50</span>
+            </div>
+            <p>Refreshing cold brew</p>
+          </div>
+
+          <div class="card menu-card" id="item-chai-latte">
+            <div class="menu-card-header">
+              <h3>Chai Latte</h3>
+              <span class="menu-price">$4.50</span>
+            </div>
+            <p>Spiced tea blend</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 2: Pastries -->
+      <section class="menu-category" id="menu-pastries-section">
+        <h2>🥐 Pastries</h2>
+        <div class="grid-3" id="pastries-menu-grid">
+          
+          <div class="card menu-card" id="item-croissant">
+            <div class="menu-card-header">
+              <h3>Croissant</h3>
+              <span class="menu-price">$3.00</span>
+            </div>
+            <p>Flaky and buttery</p>
+          </div>
+
+          <div class="card menu-card" id="item-blueberry-muffin">
+            <div class="menu-card-header">
+              <h3>Blueberry Muffin</h3>
+              <span class="menu-price">$3.50</span>
+            </div>
+            <p>Bursting with berries</p>
+          </div>
+
+          <div class="card menu-card" id="item-cinnamon-roll">
+            <div class="menu-card-header">
+              <h3>Cinnamon Roll</h3>
+              <span class="menu-price">$4.00</span>
+            </div>
+            <p>Sweet and gooey</p>
+          </div>
+
+          <div class="card menu-card" id="item-chocolate-chip-cookie">
+            <div class="menu-card-header">
+              <h3>Chocolate Chip Cookie</h3>
+              <span class="menu-price">$2.50</span>
+            </div>
+            <p>Classic favorite</p>
+          </div>
+
+          <div class="card menu-card" id="item-scone">
+            <div class="menu-card-header">
+              <h3>Scone</h3>
+              <span class="menu-price">$3.00</span>
+            </div>
+            <p>Perfect with tea</p>
+          </div>
+
+          <div class="card menu-card" id="item-danish-pastry">
+            <div class="menu-card-header">
+              <h3>Danish Pastry</h3>
+              <span class="menu-price">$3.50</span>
+            </div>
+            <p>Fruity and sweet</p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Warm Heart Cafe and Bakery</h3>
+          <p>Your neighborhood corner for fresh brew and daily baked goods.</p>
+        </div>
+
+        <!-- Page Navigation Links -->
+        <ul class="footer-links" aria-label="Footer navigation">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#menu">Menu</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Media Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <span>Follow Us:</span>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Warm Heart Cafe and Bakery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>

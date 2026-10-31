@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warm Heart Cafe and Bakery - Gallery</title>
+  <!-- Link to the shared stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="refresh" content="0; url=index.html#gallery">
+  <script>
+    // Smooth redirect to the unified single-page section
+    window.location.replace("index.html#gallery");
+  </script>
+</head>
+<body>
+
+  <!-- Notice Banner for non-redirected clients -->
+  <div style="background-color: #f3ece3; padding: 0.75rem 1rem; text-align: center; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); color: var(--primary-dark);">
+    Warm Heart Cafe is now a seamless one-page experience! <a href="index.html#gallery" style="color: var(--primary-color); font-weight: bold; text-decoration: underline;">Click here to view on the main page</a>.
+  </div>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="site-header" id="main-header">
+    <div class="container navbar">
+      <!-- 1. Logo / Brand Name -->
+      <a href="index.html#home" class="logo" id="site-logo">Warm Heart Cafe and Bakery</a>
+
+      <!-- Hamburger Button (Mobile screens below 768px) -->
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <!-- 2. Navigation Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home" id="nav-home">Home</a></li>
+        <li><a href="index.html#about" id="nav-about">About</a></li>
+        <li><a href="index.html#menu" id="nav-menu">Menu</a></li>
+        <li><a href="index.html#gallery" class="active" id="nav-gallery">Gallery</a></li>
+        <li><a href="index.html#contact" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <section class="page-header" id="gallery-header">
+        <h1>Photo Gallery</h1>
+        <p>A peek inside our kitchen, barista counter, and warm bakery display</p>
+      </section>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="gallery-container">
+        
+        <!-- 1. Coffee Cup -->
+        <div class="gallery-item" id="gallery-img-1">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Coffee Cup" loading="lazy">
+          <div class="gallery-caption">Coffee Cup</div>
+        </div>
+
+        <!-- 2. Coffee Shop -->
+        <div class="gallery-item" id="gallery-img-2">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee Shop" loading="lazy">
+          <div class="gallery-caption">Coffee Shop</div>
+        </div>
+
+        <!-- 3. Pastries -->
+        <div class="gallery-item" id="gallery-img-3">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Fresh Pastries" loading="lazy">
+          <div class="gallery-caption">Fresh Pastries</div>
+        </div>
+
+        <!-- 4. Coffee Beans -->
+        <div class="gallery-item" id="gallery-img-4">
+          <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=800&q=80" alt="Coffee Beans" loading="lazy">
+          <div class="gallery-caption">Coffee Beans</div>
+        </div>
+
+        <!-- 5. Coffee Shop Interior -->
+        <div class="gallery-item" id="gallery-img-5">
+          <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Interior" loading="lazy">
+          <div class="gallery-caption">Coffee Shop Interior</div>
+        </div>
+
+        <!-- 6. Latte Art -->
+        <div class="gallery-item" id="gallery-img-6">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Latte Art" loading="lazy">
+          <div class="gallery-caption">Latte Art</div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Warm Heart Cafe and Bakery</h3>
+          <p>Your neighborhood corner for fresh brew and daily baked goods.</p>
+        </div>
+
+        <!-- Page Navigation Links -->
+        <ul class="footer-links" aria-label="Footer navigation">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#menu">Menu</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Media Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <span>Follow Us:</span>
+          <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Warm Heart Cafe and Bakery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Link to the shared JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
