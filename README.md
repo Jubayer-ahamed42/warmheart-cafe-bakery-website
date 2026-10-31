@@ -1,4 +1,4 @@
-# ☕ WarmHeart Cafe and Bakery — Web Platform
+# ☕ WarmHeart Cafe & Bakery — Official Commercial Website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile--Responsive-success?style=flat-square)](#)
@@ -6,14 +6,14 @@
 [![Architecture](https://img.shields.io/badge/Architecture-Single--Page%20Scrollspy-orange?style=flat-square)](#)
 [![Deploy Ready](https://img.shields.io/badge/Cloudflare_Pages-Edge%20Ready-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#)
 
-> **Artisanal Specialty Coffee & Handcrafted Bakery Web Platform**  
+> **Official Commercial Website for Artisanal Specialty Coffee & Handcrafted Bakery**  
 > Engineered by **Jubayer Ahamed** | Founder & AI Solutions Architect at **Be Smart With AI**.
 
 ---
 
 ## 📖 Executive Overview
 
-**WarmHeart Cafe and Bakery** is a modern, high-conversion commercial web platform built for boutique specialty cafes and artisanal bakeries. Designed with warm aesthetics, mobile-first responsiveness, and smooth interactive navigation, the platform transforms casual online visitors into engaged dine-in and takeaway customers.
+**WarmHeart Cafe and Bakery** is a modern, high-conversion commercial website built for boutique specialty cafes and artisanal bakeries. Designed with warm hospitality aesthetics, mobile-first responsiveness, and smooth interactive navigation, the platform transforms casual online visitors into engaged dine-in and takeaway customers.
 
 The system features seamless single-page navigation with active scrollspy tracking, structured menu categorization, interactive photo galleries with modal inspection, leadership showcase, and an integrated reservation and inquiry system.
 
