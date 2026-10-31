@@ -93,15 +93,31 @@ def run_static_tests():
     print("Validating Open Graph and Twitter metadata...")
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')), "assets/og-preview.jpg file missing"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'owner_full.jpg')), "assets/owner_full.jpg file missing"
+    assert os.path.exists(os.path.join(ROOT_DIR, 'favicon.ico')), "favicon.ico missing in root"
+    assert os.path.exists(os.path.join(ROOT_DIR, 'robots.txt')), "robots.txt missing in root"
+
+    # Robots.txt validation
+    with open(os.path.join(ROOT_DIR, 'robots.txt'), 'r', encoding='utf-8') as rf:
+        robots_txt = rf.read()
+        assert 'User-agent: *' in robots_txt, "robots.txt must allow all user agents"
+        assert 'Allow: /' in robots_txt, "robots.txt must explicitly allow /"
     
-    with Image.open(os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')) as og_img:
+    # WhatsApp hard limit: OG image must be strictly under 300 KB (<= 307200 bytes)
+    og_preview_path = os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')
+    og_preview_size = os.path.getsize(og_preview_path)
+    assert og_preview_size < 300 * 1024, f"og-preview.jpg ({og_preview_size} bytes) exceeds WhatsApp 300KB limit!"
+    
+    with Image.open(og_preview_path) as og_img:
         assert og_img.size == (1200, 630), f"og-preview.jpg must be exactly 1200x630, got {og_img.size}"
     
     with Image.open(os.path.join(ROOT_DIR, 'assets', 'owner_full.jpg')) as full_img:
         assert full_img.size == (1024, 819), f"owner_full.jpg must be 1024x819, got {full_img.size}"
 
     # Verify Open Graph and Twitter metadata in index.html
+    assert 'prefix="og: https://ogp.me/ns#"' in html, "Missing RDFa og prefix in <html>"
     assert '<meta property="og:type" content="website">' in html, "Missing og:type in index.html"
+    assert '<meta property="og:site_name" content="Warm Heart Cafe and Bakery">' in html, "Missing og:site_name in index.html"
+    assert '<meta property="og:locale" content="en_US">' in html, "Missing og:locale in index.html"
     assert '<meta property="og:url" content="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/">' in html, "Missing og:url in index.html"
     assert 'property="og:title"' in html, "Missing og:title in index.html"
     assert 'property="og:description"' in html, "Missing og:description in index.html"
@@ -115,6 +131,11 @@ def run_static_tests():
     og_image_urls = re.findall(r'<meta[^>]+(?:property=["\']og:image["\']|name=["\']twitter:image["\'])[^>]+content=["\']([^"\']+)["\']', html)
     for url in og_image_urls:
         assert url.startswith('https://'), f"Social image URL must be absolute HTTPS, got {url}"
+
+    # Legacy & Schema.org Scraper Support
+    assert '<link rel="image_src" href="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg">' in html, "Missing legacy link rel='image_src'"
+    assert '<meta itemprop="image" content="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg">' in html, "Missing Schema.org itemprop='image'"
+    assert '<link rel="icon" type="image/x-icon" href="favicon.ico">' in html, "Missing favicon.ico in index.html"
 
     # 4. CSS validations
     css_path = os.path.join(ROOT_DIR, 'style.css')
@@ -306,12 +327,18 @@ async def run_browser_cdp_tests():
             assert img_width == '130px', f"Expected width 130px, got {img_width}"
             # Open Graph & Twitter meta tags in Headless Chrome DOM
             cdp_og_image = await evaluate("document.querySelector('meta[property=\"og:image\"]')?.content")
+            cdp_og_site_name = await evaluate("document.querySelector('meta[property=\"og:site_name\"]')?.content")
             cdp_twitter_card = await evaluate("document.querySelector('meta[name=\"twitter:card\"]')?.content")
             cdp_twitter_image = await evaluate("document.querySelector('meta[name=\"twitter:image\"]')?.content")
+            cdp_image_src = await evaluate("document.querySelector('link[rel=\"image_src\"]')?.href")
+            cdp_itemprop_image = await evaluate("document.querySelector('meta[itemprop=\"image\"]')?.content")
 
             assert cdp_og_image == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP og:image: {cdp_og_image}"
+            assert cdp_og_site_name == "Warm Heart Cafe and Bakery", f"Unexpected CDP og:site_name: {cdp_og_site_name}"
             assert cdp_twitter_card == "summary_large_image", f"Unexpected CDP twitter:card: {cdp_twitter_card}"
             assert cdp_twitter_image == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP twitter:image: {cdp_twitter_image}"
+            assert cdp_image_src == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP image_src: {cdp_image_src}"
+            assert cdp_itemprop_image == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP itemprop:image: {cdp_itemprop_image}"
 
             print("Real Headless Chrome Browser CDP Tests: ALL PASS!\n")
     finally:

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/
