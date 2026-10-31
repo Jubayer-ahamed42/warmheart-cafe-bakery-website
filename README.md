@@ -1,13 +1,14 @@
 # ☕ WarmHeart Cafe & Bakery — Official Commercial Website
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Live Demo: Cloudflare](https://img.shields.io/badge/Live_Website-Cloudflare_Edge-F38020?style=flat-square&logo=cloudflare&logoColor=white)](https://warmheart-cafe-bakery-website.sbmc4042.workers.dev)
 [![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile--Responsive-success?style=flat-square)](#)
 [![Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20Vanilla%20JS-amber?style=flat-square)](#)
 [![Architecture](https://img.shields.io/badge/Architecture-Single--Page%20Scrollspy-orange?style=flat-square)](#)
-[![Deploy Ready](https://img.shields.io/badge/Cloudflare_Pages-Edge%20Ready-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#)
 
 > **Official Commercial Website for Artisanal Specialty Coffee & Handcrafted Bakery**  
-> Engineered by **Jubayer Ahamed** | Founder & AI Solutions Architect at **Be Smart With AI**.
+> Engineered by **Jubayer Ahamed** | Founder & AI Solutions Architect at **Be Smart With AI**.  
+> 🌐 **Live Website URL:** [https://warmheart-cafe-bakery-website.sbmc4042.workers.dev](https://warmheart-cafe-bakery-website.sbmc4042.workers.dev)
 
 ---
 
@@ -55,7 +56,7 @@ The system features seamless single-page navigation with active scrollspy tracki
 | **Styling** | Modern CSS3 (CSS Grid, Flexbox, Custom Properties, Smooth Scrolling) |
 | **Interactivity** | Vanilla JavaScript (ES6+), DOM APIs, IntersectionObserver |
 | **Testing** | Headless Chrome CDP Automation (`tests/run_tests.py`), Static DOM Linters |
-| **Tooling & Deploy**| Cloudflare Pages Edge CDN, Vite Dev Server, 1-Click Batch Launchers |
+| **Tooling & Deploy**| Cloudflare Edge CDN (Workers & Static Assets), Vite, 1-Click Launchers |
 
 ---
 
@@ -75,12 +76,6 @@ run_website.bat
 python -m http.server 3000
 ```
 Visit: `http://localhost:3000/`
-
-### Option 3: Node.js & Vite
-```bash
-npm install
-npm run dev
-```
 
 ---
 
