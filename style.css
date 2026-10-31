@@ -736,6 +736,11 @@ main {
     grid-template-columns: 1fr;
   }
 
+  /* On mobile single column, Owner naturally sits at the top */
+  #team-jubair-ahmad {
+    order: -1;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }

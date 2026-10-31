@@ -50,20 +50,25 @@ def run_static_tests():
     
     # Manager validations
     assert 'assets/manager.jpg' in html, "assets/manager.jpg not referenced in index.html"
-    assert 'alt="Imran - Manager"' in html, "alt='Imran - Manager' not found in index.html"
+    assert 'alt="Muhammad - Manager"' in html, "alt='Muhammad - Manager' not found in index.html"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'manager.jpg')), "assets/manager.jpg file missing"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'manager_full.jpg')), "assets/manager_full.jpg file missing"
     
     # Chef validations
     assert 'assets/chef.jpg' in html, "assets/chef.jpg not referenced in index.html"
-    assert 'alt="Ashraf - Head Chef"' in html, "alt='Ashraf - Head Chef' not found in index.html"
+    assert 'alt="Alamin - Head Chef"' in html, "alt='Alamin - Head Chef' not found in index.html"
+    assert 'id="team-alamin"' in html, "id='team-alamin' not found in index.html"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'chef.jpg')), "assets/chef.jpg file missing"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'chef_full.jpg')), "assets/chef_full.jpg file missing"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'chef_crop.jpg')), "assets/chef_crop.jpg file missing"
     assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'chef_avatar.jpg')), "assets/chef_avatar.jpg file missing"
 
-    # Verify manager and chef images are 1:1 square with resolution >= 400
+    # Verify owner, manager, and chef images are 1:1 square with resolution >= 400
     from PIL import Image
+    with Image.open(os.path.join(ROOT_DIR, 'assets', 'owner.jpg')) as img:
+        assert img.size[0] == img.size[1], f"owner.jpg must be 1:1 square, got {img.size}"
+        assert img.size[0] >= 400, f"owner.jpg resolution too low: {img.size}"
+
     with Image.open(os.path.join(ROOT_DIR, 'assets', 'manager.jpg')) as img:
         assert img.size[0] == img.size[1], f"manager.jpg must be 1:1 square, got {img.size}"
         assert img.size[0] >= 400, f"manager.jpg resolution too low: {img.size}"
@@ -73,8 +78,17 @@ def run_static_tests():
         assert img.size[0] >= 400, f"chef.jpg resolution too low: {img.size}"
 
     assert 'Jubair Ahmad' in html, "Jubair Ahmad not in team section"
-    assert 'Ashraf' in html, "Ashraf not in team section"
-    assert 'Imran' in html, "Imran not in team section"
+    assert 'Alamin' in html, "Alamin not in team section"
+    assert 'Muhammad' in html, "Muhammad not in team section"
+
+    # Team sequence validation (Method 1: Center-Stage Leader)
+    # 1st: Alamin (Head Chef & Pastry Specialist)
+    # 2nd: Jubair Ahmad (Owner & Founder)
+    # 3rd: Muhammad (Manager)
+    expected_team_order = ['team-alamin', 'team-jubair-ahmad', 'team-muhammad']
+    assert 'id="team-grid"' in html, "team-grid not found in index.html"
+    team_card_ids = re.findall(r'<div[^>]*class=["\'][^"\']*team-card[^"\']*["\'][^>]*id=["\']([^"\']+)["\']', html)
+    assert team_card_ids == expected_team_order, f"Expected index.html team order {expected_team_order}, got {team_card_ids}"
 
     # 4. CSS validations
     css_path = os.path.join(ROOT_DIR, 'style.css')
@@ -94,10 +108,16 @@ def run_static_tests():
         section_id = page.replace('.html', '')
         assert f'index.html#{section_id}' in content, f"Missing redirect target in {page}"
         if page == 'about.html':
+            assert 'assets/owner.jpg' in content, "Missing assets/owner.jpg reference in about.html"
             assert 'assets/manager.jpg' in content, "Missing assets/manager.jpg reference in about.html"
-            assert 'alt="Imran - Manager"' in content, "Missing alt='Imran - Manager' in about.html"
+            assert 'alt="Muhammad - Manager"' in content, "Missing alt='Muhammad - Manager' in about.html"
             assert 'assets/chef.jpg' in content, "Missing assets/chef.jpg reference in about.html"
-            assert 'alt="Ashraf - Head Chef"' in content, "Missing alt='Ashraf - Head Chef' in about.html"
+            assert 'alt="Alamin - Head Chef"' in content, "Missing alt='Alamin - Head Chef' in about.html"
+            assert 'id="team-alamin"' in content, "Missing id='team-alamin' in about.html"
+            assert 'id="team-grid"' in content, "team-grid not found in about.html"
+
+            about_card_ids = re.findall(r'<div[^>]*class=["\'][^"\']*team-card[^"\']*["\'][^>]*id=["\']([^"\']+)["\']', content)
+            assert about_card_ids == expected_team_order, f"Expected about.html team order {expected_team_order}, got {about_card_ids}"
 
     print("Static DOM & Code Validations: ALL PASS!\n")
 
@@ -208,28 +228,32 @@ async def run_browser_cdp_tests():
             assert form_display == 'block', "Form message display should be block"
             assert "Jubair Customer" in form_html, "Form message should contain user name"
 
-            # Manager team image rendering in browser
-            img_complete = await evaluate("document.querySelector('#team-imran img')?.complete")
-            img_natural_w = await evaluate("document.querySelector('#team-imran img')?.naturalWidth")
-            img_natural_h = await evaluate("document.querySelector('#team-imran img')?.naturalHeight")
-            img_border_radius = await evaluate("getComputedStyle(document.querySelector('#team-imran img')).borderRadius")
-            img_width = await evaluate("getComputedStyle(document.querySelector('#team-imran img')).width")
-            img_height = await evaluate("getComputedStyle(document.querySelector('#team-imran img')).height")
+            # Team sequence validation in DOM
+            dom_team_ids = await evaluate("Array.from(document.querySelectorAll('#team-grid .team-card')).map(el => el.id)")
+            assert dom_team_ids == ['team-alamin', 'team-jubair-ahmad', 'team-muhammad'], f"DOM team order mismatch: {dom_team_ids}"
+
+            # Owner team image rendering in browser
+            owner_img_complete = await evaluate("document.querySelector('#team-jubair-ahmad img')?.complete")
+            owner_img_natural_w = await evaluate("document.querySelector('#team-jubair-ahmad img')?.naturalWidth")
+            owner_img_natural_h = await evaluate("document.querySelector('#team-jubair-ahmad img')?.naturalHeight")
+            owner_img_border_radius = await evaluate("getComputedStyle(document.querySelector('#team-jubair-ahmad img')).borderRadius")
+            owner_img_width = await evaluate("getComputedStyle(document.querySelector('#team-jubair-ahmad img')).width")
+            owner_img_height = await evaluate("getComputedStyle(document.querySelector('#team-jubair-ahmad img')).height")
             
-            assert img_complete is True, "Manager image did not complete loading"
-            assert img_natural_w and img_natural_w > 0, f"Manager image naturalWidth invalid: {img_natural_w}"
-            assert img_natural_h and img_natural_h > 0, f"Manager image naturalHeight invalid: {img_natural_h}"
-            assert img_border_radius == '50%', f"Expected 50% border radius, got {img_border_radius}"
-            assert img_width == '130px', f"Expected width 130px, got {img_width}"
-            assert img_height == '130px', f"Expected height 130px, got {img_height}"
+            assert owner_img_complete is True, "Owner image did not complete loading"
+            assert owner_img_natural_w and owner_img_natural_w > 0, f"Owner image naturalWidth invalid: {owner_img_natural_w}"
+            assert owner_img_natural_h and owner_img_natural_h > 0, f"Owner image naturalHeight invalid: {owner_img_natural_h}"
+            assert owner_img_border_radius == '50%', f"Expected 50% border radius, got {owner_img_border_radius}"
+            assert owner_img_width == '130px', f"Expected width 130px, got {owner_img_width}"
+            assert owner_img_height == '130px', f"Expected height 130px, got {owner_img_height}"
 
             # Chef team image rendering in browser
-            chef_img_complete = await evaluate("document.querySelector('#team-ashraf img')?.complete")
-            chef_img_natural_w = await evaluate("document.querySelector('#team-ashraf img')?.naturalWidth")
-            chef_img_natural_h = await evaluate("document.querySelector('#team-ashraf img')?.naturalHeight")
-            chef_img_border_radius = await evaluate("getComputedStyle(document.querySelector('#team-ashraf img')).borderRadius")
-            chef_img_width = await evaluate("getComputedStyle(document.querySelector('#team-ashraf img')).width")
-            chef_img_height = await evaluate("getComputedStyle(document.querySelector('#team-ashraf img')).height")
+            chef_img_complete = await evaluate("document.querySelector('#team-alamin img')?.complete")
+            chef_img_natural_w = await evaluate("document.querySelector('#team-alamin img')?.naturalWidth")
+            chef_img_natural_h = await evaluate("document.querySelector('#team-alamin img')?.naturalHeight")
+            chef_img_border_radius = await evaluate("getComputedStyle(document.querySelector('#team-alamin img')).borderRadius")
+            chef_img_width = await evaluate("getComputedStyle(document.querySelector('#team-alamin img')).width")
+            chef_img_height = await evaluate("getComputedStyle(document.querySelector('#team-alamin img')).height")
             
             assert chef_img_complete is True, "Chef image did not complete loading"
             assert chef_img_natural_w and chef_img_natural_w > 0, f"Chef image naturalWidth invalid: {chef_img_natural_w}"
@@ -237,6 +261,21 @@ async def run_browser_cdp_tests():
             assert chef_img_border_radius == '50%', f"Expected 50% border radius, got {chef_img_border_radius}"
             assert chef_img_width == '130px', f"Expected width 130px, got {chef_img_width}"
             assert chef_img_height == '130px', f"Expected height 130px, got {chef_img_height}"
+
+            # Manager team image rendering in browser
+            img_complete = await evaluate("document.querySelector('#team-muhammad img')?.complete")
+            img_natural_w = await evaluate("document.querySelector('#team-muhammad img')?.naturalWidth")
+            img_natural_h = await evaluate("document.querySelector('#team-muhammad img')?.naturalHeight")
+            img_border_radius = await evaluate("getComputedStyle(document.querySelector('#team-muhammad img')).borderRadius")
+            img_width = await evaluate("getComputedStyle(document.querySelector('#team-muhammad img')).width")
+            img_height = await evaluate("getComputedStyle(document.querySelector('#team-muhammad img')).height")
+            
+            assert img_complete is True, "Manager image did not complete loading"
+            assert img_natural_w and img_natural_w > 0, f"Manager image naturalWidth invalid: {img_natural_w}"
+            assert img_natural_h and img_natural_h > 0, f"Manager image naturalHeight invalid: {img_natural_h}"
+            assert img_border_radius == '50%', f"Expected 50% border radius, got {img_border_radius}"
+            assert img_width == '130px', f"Expected width 130px, got {img_width}"
+            assert img_height == '130px', f"Expected height 130px, got {img_height}"
 
             print("Real Headless Chrome Browser CDP Tests: ALL PASS!\n")
     finally:
