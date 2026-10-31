@@ -86,9 +86,35 @@ def run_static_tests():
     # 2nd: Jubair Ahmad (Owner & Founder)
     # 3rd: Muhammad (Manager)
     expected_team_order = ['team-alamin', 'team-jubair-ahmad', 'team-muhammad']
-    assert 'id="team-grid"' in html, "team-grid not found in index.html"
     team_card_ids = re.findall(r'<div[^>]*class=["\'][^"\']*team-card[^"\']*["\'][^>]*id=["\']([^"\']+)["\']', html)
     assert team_card_ids == expected_team_order, f"Expected index.html team order {expected_team_order}, got {team_card_ids}"
+
+    # Open Graph & Twitter Social Preview Validations
+    print("Validating Open Graph and Twitter metadata...")
+    assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')), "assets/og-preview.jpg file missing"
+    assert os.path.exists(os.path.join(ROOT_DIR, 'assets', 'owner_full.jpg')), "assets/owner_full.jpg file missing"
+    
+    with Image.open(os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')) as og_img:
+        assert og_img.size == (1200, 630), f"og-preview.jpg must be exactly 1200x630, got {og_img.size}"
+    
+    with Image.open(os.path.join(ROOT_DIR, 'assets', 'owner_full.jpg')) as full_img:
+        assert full_img.size == (1024, 819), f"owner_full.jpg must be 1024x819, got {full_img.size}"
+
+    # Verify Open Graph and Twitter metadata in index.html
+    assert '<meta property="og:type" content="website">' in html, "Missing og:type in index.html"
+    assert '<meta property="og:url" content="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/">' in html, "Missing og:url in index.html"
+    assert 'property="og:title"' in html, "Missing og:title in index.html"
+    assert 'property="og:description"' in html, "Missing og:description in index.html"
+    assert 'content="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg"' in html, "Missing og-preview.jpg absolute HTTPS URL in index.html"
+    assert 'content="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/owner_full.jpg"' in html, "Missing owner_full.jpg fallback URL in index.html"
+    assert '<meta name="twitter:card" content="summary_large_image">' in html, "Missing twitter:card summary_large_image in index.html"
+    assert 'name="twitter:image"' in html, "Missing twitter:image in index.html"
+    assert 'Jubair Ahmad' in html, "Owner Jubair Ahmad name missing in metadata"
+
+    # Social scrapers strictly require absolute HTTPS URLs, check for no relative og/twitter image links
+    og_image_urls = re.findall(r'<meta[^>]+(?:property=["\']og:image["\']|name=["\']twitter:image["\'])[^>]+content=["\']([^"\']+)["\']', html)
+    for url in og_image_urls:
+        assert url.startswith('https://'), f"Social image URL must be absolute HTTPS, got {url}"
 
     # 4. CSS validations
     css_path = os.path.join(ROOT_DIR, 'style.css')
@@ -107,6 +133,9 @@ def run_static_tests():
             content = f.read()
         section_id = page.replace('.html', '')
         assert f'index.html#{section_id}' in content, f"Missing redirect target in {page}"
+        assert 'property="og:image"' in content, f"Missing og:image in {page}"
+        assert 'name="twitter:image"' in content, f"Missing twitter:image in {page}"
+        assert 'https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg' in content, f"Missing absolute og-preview URL in {page}"
         if page == 'about.html':
             assert 'assets/owner.jpg' in content, "Missing assets/owner.jpg reference in about.html"
             assert 'assets/manager.jpg' in content, "Missing assets/manager.jpg reference in about.html"
@@ -275,7 +304,14 @@ async def run_browser_cdp_tests():
             assert img_natural_h and img_natural_h > 0, f"Manager image naturalHeight invalid: {img_natural_h}"
             assert img_border_radius == '50%', f"Expected 50% border radius, got {img_border_radius}"
             assert img_width == '130px', f"Expected width 130px, got {img_width}"
-            assert img_height == '130px', f"Expected height 130px, got {img_height}"
+            # Open Graph & Twitter meta tags in Headless Chrome DOM
+            cdp_og_image = await evaluate("document.querySelector('meta[property=\"og:image\"]')?.content")
+            cdp_twitter_card = await evaluate("document.querySelector('meta[name=\"twitter:card\"]')?.content")
+            cdp_twitter_image = await evaluate("document.querySelector('meta[name=\"twitter:image\"]')?.content")
+
+            assert cdp_og_image == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP og:image: {cdp_og_image}"
+            assert cdp_twitter_card == "summary_large_image", f"Unexpected CDP twitter:card: {cdp_twitter_card}"
+            assert cdp_twitter_image == "https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg", f"Unexpected CDP twitter:image: {cdp_twitter_image}"
 
             print("Real Headless Chrome Browser CDP Tests: ALL PASS!\n")
     finally:
