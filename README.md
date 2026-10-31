@@ -36,10 +36,10 @@ The system features seamless single-page navigation with active scrollspy tracki
 * Lightbox zoom capabilities with zero external library overhead.
 
 ### 4. 👥 Heritage & Team Leadership Showcase
-* Dedicated team section highlighting culinary craftsmanship:
-  * **Jubair Ahmad** — Founder & Head Roaster
-  * **Ashraf** — Head Pastry Chef
-  * **Imran** — Cafe Manager & Hospitality Lead
+* Dedicated team section highlighting culinary craftsmanship (Method 1 Center-Stage Leader):
+  * **Alamin** — Head Chef & Pastry Specialist
+  * **Jubair Ahmad** — Owner & Founder
+  * **Muhammad** — Manager
 * 1:1 circular responsive portraits optimized for ultra-fast CDN delivery.
 
 ### 5. 📍 Reservation & Contact Integration
