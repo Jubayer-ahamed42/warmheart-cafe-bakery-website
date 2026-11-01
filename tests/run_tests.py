@@ -96,12 +96,44 @@ def run_static_tests():
     assert os.path.exists(os.path.join(ROOT_DIR, 'favicon.ico')), "favicon.ico missing in root"
     assert os.path.exists(os.path.join(ROOT_DIR, 'robots.txt')), "robots.txt missing in root"
 
-    # Robots.txt validation
+    # Robots.txt & Sitemap validation
+    assert os.path.exists(os.path.join(ROOT_DIR, 'sitemap.xml')), "sitemap.xml missing in root"
     with open(os.path.join(ROOT_DIR, 'robots.txt'), 'r', encoding='utf-8') as rf:
         robots_txt = rf.read()
         assert 'User-agent: *' in robots_txt, "robots.txt must allow all user agents"
         assert 'Allow: /' in robots_txt, "robots.txt must explicitly allow /"
-    
+        assert 'Sitemap: https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/sitemap.xml' in robots_txt, "robots.txt must point to sitemap.xml"
+
+    with open(os.path.join(ROOT_DIR, 'sitemap.xml'), 'r', encoding='utf-8') as sf:
+        sitemap_xml = sf.read()
+        assert '<loc>https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/</loc>' in sitemap_xml, "sitemap.xml missing canonical site URL"
+
+    # Assetsignore validation (Cloudflare Workers Static Assets sensitive file shielding)
+    assert os.path.exists(os.path.join(ROOT_DIR, '.assetsignore')), ".assetsignore missing in root"
+    with open(os.path.join(ROOT_DIR, '.assetsignore'), 'r', encoding='utf-8') as af:
+        assets_ignore = af.read()
+        for pattern in ['.git/', '.github/', '.specify/', 'tests/', '*.bat', '*.py', '*.md', '*.json', '*.ts', '.env*']:
+            assert pattern in assets_ignore, f"Missing {pattern} in .assetsignore"
+
+    # Security Headers (_headers) validation
+    assert os.path.exists(os.path.join(ROOT_DIR, '_headers')), "_headers file missing in root"
+    with open(os.path.join(ROOT_DIR, '_headers'), 'r', encoding='utf-8') as hf:
+        headers_content = hf.read()
+        assert 'X-Frame-Options: SAMEORIGIN' in headers_content, "Missing X-Frame-Options in _headers"
+        assert 'X-Content-Type-Options: nosniff' in headers_content, "Missing X-Content-Type-Options in _headers"
+        assert 'Referrer-Policy: strict-origin-when-cross-origin' in headers_content, "Missing Referrer-Policy in _headers"
+
+    # Mobile Clickable Phone & Email + WCAG Heading Hierarchy
+    for page_name in ['index.html', 'contact.html']:
+        with open(os.path.join(ROOT_DIR, page_name), 'r', encoding='utf-8') as pf:
+            p_content = pf.read()
+            assert '<a href="tel:01984787625">01984787625</a>' in p_content, f"Missing clickable phone tel: link in {page_name}"
+            assert '<a href="mailto:sbma4042@gmail.com">sbma4042@gmail.com</a>' in p_content, f"Missing clickable email mailto: link in {page_name}"
+            assert '<h3>📍 Our Location</h3>' in p_content, f"Contact heading level should be h3 in {page_name}"
+            assert '<h3>⏰ Opening Hours</h3>' in p_content, f"Opening Hours heading level should be h3 in {page_name}"
+            assert '<h3>📞 Contact Direct</h3>' in p_content, f"Contact Direct heading level should be h3 in {page_name}"
+            assert '<h3>🥐 Special Orders</h3>' in p_content, f"Special Orders heading level should be h3 in {page_name}"
+
     # WhatsApp hard limit: OG image must be strictly under 300 KB (<= 307200 bytes)
     og_preview_path = os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')
     og_preview_size = os.path.getsize(og_preview_path)
@@ -144,16 +176,19 @@ def run_static_tests():
 
     assert 'scroll-behavior: smooth;' in css, "Missing smooth scroll in CSS"
     assert 'scroll-padding-top: 80px;' in css, "Missing scroll-padding-top in CSS"
+    assert 'min-width: 44px;' in css, "Missing 44px touch target min-width in style.css"
+    assert 'min-height: 44px;' in css, "Missing 44px touch target min-height in style.css"
     # Ensure redundant scroll-margin-top is NOT set to prevent double offset
     assert 'section[id] {\n  scroll-margin-top:' not in css, "Redundant scroll-margin-top found in CSS"
 
-    # 5. Standalone redirects
+    # 5. Standalone redirects & Canonical resolution
     for page in ['about.html', 'menu.html', 'gallery.html', 'contact.html']:
         page_path = os.path.join(ROOT_DIR, page)
         with open(page_path, 'r', encoding='utf-8') as f:
             content = f.read()
         section_id = page.replace('.html', '')
         assert f'index.html#{section_id}' in content, f"Missing redirect target in {page}"
+        assert '<link rel="canonical" href="https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/">' in content, f"Missing canonical root in {page}"
         assert 'property="og:image"' in content, f"Missing og:image in {page}"
         assert 'name="twitter:image"' in content, f"Missing twitter:image in {page}"
         assert 'https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/assets/og-preview.jpg' in content, f"Missing absolute og-preview URL in {page}"
@@ -264,7 +299,12 @@ async def run_browser_cdp_tests():
             is_open_after = await evaluate("document.getElementById('nav-links').classList.contains('open')")
             assert is_open_after is False, "Expected mobile menu closed after link click"
 
-            # Form submit inline notification
+            # Tracking fragments resilience validation (ensure #fbclid, #:~:text, ##, #123 never throw DOMException)
+            for bad_hash in ['#fbclid=IwAR123', '#:~:text=croissant', '##', '#123']:
+                await evaluate(f"(() => {{ window.location.hash = '{bad_hash}'; window.dispatchEvent(new Event('hashchange')); }})()")
+                await asyncio.sleep(0.2)
+
+            # Form submit inline notification & Mailto delivery validation
             await evaluate("""
                 (() => {
                     document.getElementById('user-name').value = 'Jubair Customer';
@@ -277,6 +317,7 @@ async def run_browser_cdp_tests():
             form_html = await evaluate("document.getElementById('form-message').innerHTML")
             assert form_display == 'block', "Form message display should be block"
             assert "Jubair Customer" in form_html, "Form message should contain user name"
+            assert "sbma4042@gmail.com" in form_html, "Form message should contain destination email sbma4042@gmail.com"
 
             # Team sequence validation in DOM
             dom_team_ids = await evaluate("Array.from(document.querySelectorAll('#team-grid .team-card')).map(el => el.id)")

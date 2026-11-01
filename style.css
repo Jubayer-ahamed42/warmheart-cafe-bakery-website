@@ -110,16 +110,20 @@ body {
   font-weight: 600;
 }
 
-/* Requirement 8: Mobile Nav Toggle Button (Hamburger) */
+/* Requirement 8: Mobile Nav Toggle Button (Hamburger) with WCAG 44x44px touch target */
 .nav-toggle {
   display: none;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 0.4rem 0.75rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1.25rem;
   color: #ffffff;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.2s ease;
 }
 
@@ -495,14 +499,27 @@ main {
   margin-bottom: 1.5rem;
 }
 
+.contact-info-block h3,
 .contact-info-block h4 {
+  font-family: var(--font-heading);
   color: var(--primary-dark);
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 0.25rem;
 }
 
 .contact-info-block p {
   color: var(--text-muted);
+}
+
+.contact-info-block a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.contact-info-block a:hover {
+  color: var(--primary-dark);
 }
 
 .contact-form {
@@ -654,7 +671,12 @@ main {
   color: #ffffff;
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 0.35rem 0.65rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.85rem;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -691,7 +713,7 @@ main {
 
   /* Show hamburger button on screens below 768px */
   .nav-toggle {
-    display: block;
+    display: inline-flex;
   }
 
   /* Hide navigation links by default on mobile */

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/
+Sitemap: https://warmheart-cafe-bakery-website.sbmc4042.workers.dev/sitemap.xml

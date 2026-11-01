@@ -1,0 +1,10 @@
+.git/
+.github/
+.specify/
+tests/
+*.bat
+*.py
+*.md
+*.json
+*.ts
+.env*

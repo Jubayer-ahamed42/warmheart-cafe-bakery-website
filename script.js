@@ -75,23 +75,25 @@ document.addEventListener('DOMContentLoaded', () => {
   function setActiveNavLink(targetHash) {
     if (!navLinks.length || !targetHash) return;
 
-    // Normalize hash: e.g. "index.html#about" or "#about" -> "#about"
-    const hashIndex = targetHash.indexOf('#');
-    const cleanHash = hashIndex !== -1 ? targetHash.substring(hashIndex).toLowerCase() : targetHash.toLowerCase();
+    try {
+      // Normalize hash: e.g. "index.html#about" or "#about" -> "#about"
+      const hashIndex = targetHash.indexOf('#');
+      const cleanHash = hashIndex !== -1 ? targetHash.substring(hashIndex).toLowerCase() : targetHash.toLowerCase();
 
-    if (!cleanHash || cleanHash === '#') return;
+      if (!cleanHash || cleanHash === '#') return;
 
-    navLinks.forEach(link => {
-      const href = (link.getAttribute('href') || '').toLowerCase();
-      const linkHashIndex = href.indexOf('#');
-      const linkHash = linkHashIndex !== -1 ? href.substring(linkHashIndex) : href;
+      navLinks.forEach(link => {
+        const href = (link.getAttribute('href') || '').toLowerCase();
+        const linkHashIndex = href.indexOf('#');
+        const linkHash = linkHashIndex !== -1 ? href.substring(linkHashIndex) : href;
 
-      if (linkHash === cleanHash) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
+        if (linkHash === cleanHash) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    } catch (_) {}
   }
 
   function updateActiveNavOnScroll() {
@@ -180,38 +182,54 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
 
-    // Handle direct hash navigation on page load
+    // Handle direct hash navigation on page load safely
     if (window.location.hash) {
-      const hash = window.location.hash.toLowerCase();
-      setActiveNavLink(hash);
-      if (hash === '#home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        const targetElement = document.querySelector(window.location.hash);
-        if (targetElement) {
-          setTimeout(() => {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }, 80);
+      try {
+        const rawHash = window.location.hash;
+        const hash = rawHash.toLowerCase();
+        setActiveNavLink(hash);
+        if (hash === '#home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Safely resolve element by ID without throwing DOMException on special tracking/query fragments
+          const targetId = decodeURIComponent(rawHash.replace(/^#/, ''));
+          const targetElement = targetId ? document.getElementById(targetId) : null;
+          if (targetElement) {
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }, 80);
+          }
         }
+      } catch (err) {
+        // Ignore unhandled DOMException or invalid URL fragment selectors
       }
     } else {
       updateActiveNavOnScroll();
     }
 
-    // Handle URL hash changes
+    // Handle URL hash changes safely
     window.addEventListener('hashchange', () => {
       if (window.location.hash) {
-        const hash = window.location.hash.toLowerCase();
-        setActiveNavLink(hash);
-        if (hash === '#home') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        try {
+          const rawHash = window.location.hash;
+          const hash = rawHash.toLowerCase();
+          setActiveNavLink(hash);
+          if (hash === '#home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            const targetId = decodeURIComponent(rawHash.replace(/^#/, ''));
+            const targetElement = targetId ? document.getElementById(targetId) : null;
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        } catch (_) {}
       }
     });
   }
 
   // -------------------------------------------------------------
-  // 3. Contact Form Submission with Styled Inline Alert
+  // 3. Contact Form Submission with Active Delivery to sbma4042@gmail.com
   // -------------------------------------------------------------
   const contactForm = document.getElementById('contact-form');
   const formMessage = document.getElementById('form-message');
@@ -222,7 +240,14 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault(); // Prevent standard page reload
 
       const nameInput = document.getElementById('user-name');
+      const emailInput = document.getElementById('user-email');
+      const subjectInput = document.getElementById('user-subject');
+      const messageInput = document.getElementById('user-message');
+
       const senderName = nameInput && nameInput.value.trim() ? nameInput.value.trim() : 'Guest';
+      const senderEmail = emailInput && emailInput.value.trim() ? emailInput.value.trim() : '';
+      const subjectValue = subjectInput && subjectInput.options[subjectInput.selectedIndex] ? subjectInput.options[subjectInput.selectedIndex].text : 'General Question';
+      const userMessage = messageInput && messageInput.value.trim() ? messageInput.value.trim() : '';
 
       // Clear any prior dismissal timer to prevent early disappearance
       if (formMessageTimeout) {
@@ -230,9 +255,32 @@ document.addEventListener('DOMContentLoaded', () => {
         formMessageTimeout = null;
       }
 
-      // Inline success notification
-      formMessage.innerHTML = `<strong>Thank you, ${escapeHtml(senderName)}!</strong> Your message has been sent successfully. We will get back to you soon.`;
+      // Construct mailto dispatch payload for customer orders and inquiries
+      const mailtoRecipient = 'sbma4042@gmail.com';
+      const mailtoSubject = encodeURIComponent(`[Warm Heart Inquiry] ${subjectValue} - ${senderName}`);
+      const mailtoBody = encodeURIComponent(
+        `Warm Heart Cafe & Bakery Customer Inquiry:\n\n` +
+        `• Full Name: ${senderName}\n` +
+        `• Email Address: ${senderEmail}\n` +
+        `• Inquiry Type: ${subjectValue}\n\n` +
+        `Message:\n${userMessage}\n\n` +
+        `Sent via Warm Heart Cafe Web Platform`
+      );
+      const mailtoUrl = `mailto:${mailtoRecipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+      // Inline success notification with direct dispatch fallback
+      formMessage.innerHTML = `<strong>Thank you, ${escapeHtml(senderName)}!</strong> Your message has been prepared for delivery to Warm Heart Cafe (<a href="mailto:${mailtoRecipient}" style="color: inherit; text-decoration: underline;">${mailtoRecipient}</a>). If your email application did not open automatically, <a href="${mailtoUrl}" style="color: inherit; text-decoration: underline; font-weight: bold;">click here to dispatch directly</a>.`;
       formMessage.style.display = 'block';
+
+      // Attempt non-blocking mailto launch
+      try {
+        const mailLink = document.createElement('a');
+        mailLink.href = mailtoUrl;
+        mailLink.style.display = 'none';
+        document.body.appendChild(mailLink);
+        mailLink.click();
+        document.body.removeChild(mailLink);
+      } catch (_) {}
 
       // Reset input fields
       contactForm.reset();
@@ -240,11 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Smoothly bring the confirmation message into view if needed
       formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-      // Automatically dismiss alert after 7 seconds
+      // Automatically dismiss alert after 10 seconds
       formMessageTimeout = setTimeout(() => {
         formMessage.style.display = 'none';
         formMessageTimeout = null;
-      }, 7000);
+      }, 10000);
     });
   }
 
