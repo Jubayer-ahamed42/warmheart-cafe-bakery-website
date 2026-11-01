@@ -1,6 +1,7 @@
 .git/
 .github/
 .specify/
+.wrangler/
 tests/
 *.bat
 *.py
@@ -8,3 +9,6 @@ tests/
 *.json
 *.ts
 .env*
+.gitignore
+LICENSE
+.aistudio/

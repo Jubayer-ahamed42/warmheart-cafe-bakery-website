@@ -82,6 +82,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!cleanHash || cleanHash === '#') return;
 
+      // Check if cleanHash matches any of our known navigation links
+      let matched = false;
+      navLinks.forEach(link => {
+        const href = (link.getAttribute('href') || '').toLowerCase();
+        const linkHashIndex = href.indexOf('#');
+        const linkHash = linkHashIndex !== -1 ? href.substring(linkHashIndex) : href;
+        if (linkHash === cleanHash) {
+          matched = true;
+        }
+      });
+
+      if (!matched) {
+        // If cleanHash is an unknown fragment (e.g. tracking fragments like #fbclid, #:~:text, ##, #123),
+        // do not clear active navigation links. Fallback to scroll position.
+        updateActiveNavOnScroll();
+        return;
+      }
+
       navLinks.forEach(link => {
         const href = (link.getAttribute('href') || '').toLowerCase();
         const linkHashIndex = href.indexOf('#');
@@ -187,21 +205,26 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const rawHash = window.location.hash;
         const hash = rawHash.toLowerCase();
-        setActiveNavLink(hash);
         if (hash === '#home') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          setActiveNavLink('#home');
         } else {
           // Safely resolve element by ID without throwing DOMException on special tracking/query fragments
           const targetId = decodeURIComponent(rawHash.replace(/^#/, ''));
           const targetElement = targetId ? document.getElementById(targetId) : null;
           if (targetElement) {
+            setActiveNavLink(hash);
             setTimeout(() => {
               targetElement.scrollIntoView({ behavior: 'smooth' });
             }, 80);
+          } else {
+            // Target does not exist (e.g. tracking hash #fbclid=..., #123, etc.)
+            updateActiveNavOnScroll();
           }
         }
       } catch (err) {
         // Ignore unhandled DOMException or invalid URL fragment selectors
+        updateActiveNavOnScroll();
       }
     } else {
       updateActiveNavOnScroll();
@@ -213,17 +236,24 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const rawHash = window.location.hash;
           const hash = rawHash.toLowerCase();
-          setActiveNavLink(hash);
           if (hash === '#home') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            setActiveNavLink('#home');
           } else {
             const targetId = decodeURIComponent(rawHash.replace(/^#/, ''));
             const targetElement = targetId ? document.getElementById(targetId) : null;
             if (targetElement) {
+              setActiveNavLink(hash);
               targetElement.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              updateActiveNavOnScroll();
             }
           }
-        } catch (_) {}
+        } catch (_) {
+          updateActiveNavOnScroll();
+        }
+      } else {
+        updateActiveNavOnScroll();
       }
     });
   }
@@ -269,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const mailtoUrl = `mailto:${mailtoRecipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
 
       // Inline success notification with direct dispatch fallback
-      formMessage.innerHTML = `<strong>Thank you, ${escapeHtml(senderName)}!</strong> Your message has been prepared for delivery to Warm Heart Cafe (<a href="mailto:${mailtoRecipient}" style="color: inherit; text-decoration: underline;">${mailtoRecipient}</a>). If your email application did not open automatically, <a href="${mailtoUrl}" style="color: inherit; text-decoration: underline; font-weight: bold;">click here to dispatch directly</a>.`;
+      formMessage.innerHTML = `<strong>Thank you, ${escapeHtml(senderName)}!</strong> Your message has been prepared for delivery to Warm Heart Cafe (<a href="mailto:${mailtoRecipient}" style="color: inherit; text-decoration: underline;">${mailtoRecipient}</a>). If your email application did not open automatically, <a href="${escapeHtml(mailtoUrl)}" style="color: inherit; text-decoration: underline; font-weight: bold;">click here to dispatch directly</a>.`;
       formMessage.style.display = 'block';
 
       // Attempt non-blocking mailto launch

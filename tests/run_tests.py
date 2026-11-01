@@ -124,11 +124,13 @@ def run_static_tests():
         assert 'Referrer-Policy: strict-origin-when-cross-origin' in headers_content, "Missing Referrer-Policy in _headers"
 
     # Mobile Clickable Phone & Email + WCAG Heading Hierarchy
+    assert '<h2 class="sr-only">Our Offerings</h2>' in html, "Missing h2.sr-only for Offerings in index.html"
     for page_name in ['index.html', 'contact.html']:
         with open(os.path.join(ROOT_DIR, page_name), 'r', encoding='utf-8') as pf:
             p_content = pf.read()
             assert '<a href="tel:01984787625">01984787625</a>' in p_content, f"Missing clickable phone tel: link in {page_name}"
             assert '<a href="mailto:sbma4042@gmail.com">sbma4042@gmail.com</a>' in p_content, f"Missing clickable email mailto: link in {page_name}"
+            assert 'action="mailto:sbma4042@gmail.com"' in p_content, f"Missing progressive mailto action in {page_name}"
             assert '<h3>📍 Our Location</h3>' in p_content, f"Contact heading level should be h3 in {page_name}"
             assert '<h3>⏰ Opening Hours</h3>' in p_content, f"Opening Hours heading level should be h3 in {page_name}"
             assert '<h3>📞 Contact Direct</h3>' in p_content, f"Contact Direct heading level should be h3 in {page_name}"
@@ -178,6 +180,7 @@ def run_static_tests():
     assert 'scroll-padding-top: 80px;' in css, "Missing scroll-padding-top in CSS"
     assert 'min-width: 44px;' in css, "Missing 44px touch target min-width in style.css"
     assert 'min-height: 44px;' in css, "Missing 44px touch target min-height in style.css"
+    assert '.sr-only {' in css, "Missing .sr-only accessible utility in style.css"
     # Ensure redundant scroll-margin-top is NOT set to prevent double offset
     assert 'section[id] {\n  scroll-margin-top:' not in css, "Redundant scroll-margin-top found in CSS"
 
@@ -299,10 +302,16 @@ async def run_browser_cdp_tests():
             is_open_after = await evaluate("document.getElementById('nav-links').classList.contains('open')")
             assert is_open_after is False, "Expected mobile menu closed after link click"
 
-            # Tracking fragments resilience validation (ensure #fbclid, #:~:text, ##, #123 never throw DOMException)
+            # Tracking fragments resilience validation (ensure #fbclid, #:~:text, ##, #123 never throw DOMException and active link remains preserved)
             for bad_hash in ['#fbclid=IwAR123', '#:~:text=croissant', '##', '#123']:
                 await evaluate(f"(() => {{ window.location.hash = '{bad_hash}'; window.dispatchEvent(new Event('hashchange')); }})()")
                 await asyncio.sleep(0.2)
+                active_after_hash = await evaluate("document.querySelector('.nav-links a.active')?.id")
+                assert active_after_hash == 'nav-home', f"Expected nav-home active after {bad_hash}, got {active_after_hash}"
+
+            # Footer link touch target height validation (WCAG 44x44px target)
+            footer_link_h = await evaluate("document.querySelector('.footer-links a').getBoundingClientRect().height")
+            assert footer_link_h >= 44, f"Footer link touch target height must be >= 44px, got {footer_link_h}"
 
             # Form submit inline notification & Mailto delivery validation
             await evaluate("""
