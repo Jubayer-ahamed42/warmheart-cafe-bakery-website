@@ -131,10 +131,10 @@ def run_static_tests():
             assert '<a href="tel:01984787625">01984787625</a>' in p_content, f"Missing clickable phone tel: link in {page_name}"
             assert '<a href="mailto:sbma4042@gmail.com">sbma4042@gmail.com</a>' in p_content, f"Missing clickable email mailto: link in {page_name}"
             assert 'action="mailto:sbma4042@gmail.com"' in p_content, f"Missing progressive mailto action in {page_name}"
-            assert '<h3>📍 Our Location</h3>' in p_content, f"Contact heading level should be h3 in {page_name}"
-            assert '<h3>⏰ Opening Hours</h3>' in p_content, f"Opening Hours heading level should be h3 in {page_name}"
-            assert '<h3>📞 Contact Direct</h3>' in p_content, f"Contact Direct heading level should be h3 in {page_name}"
-            assert '<h3>🥐 Special Orders</h3>' in p_content, f"Special Orders heading level should be h3 in {page_name}"
+            assert '<h3> Our Location</h3>' in p_content, f"Contact heading level should be h3 in {page_name}"
+            assert '<h3>[Alarm] Opening Hours</h3>' in p_content, f"Opening Hours heading level should be h3 in {page_name}"
+            assert '<h3> Contact Direct</h3>' in p_content, f"Contact Direct heading level should be h3 in {page_name}"
+            assert '<h3>[Pastry] Special Orders</h3>' in p_content, f"Special Orders heading level should be h3 in {page_name}"
 
     # WhatsApp hard limit: OG image must be strictly under 300 KB (<= 307200 bytes)
     og_preview_path = os.path.join(ROOT_DIR, 'assets', 'og-preview.jpg')
@@ -182,7 +182,7 @@ def run_static_tests():
     assert 'min-height: 44px;' in css, "Missing 44px touch target min-height in style.css"
     assert '.sr-only {' in css, "Missing .sr-only accessible utility in style.css"
     # Ensure redundant scroll-margin-top is NOT set to prevent double offset
-    assert 'section[id] {\n  scroll-margin-top:' not in css, "Redundant scroll-margin-top found in CSS"
+    assert 'section[id] {\n scroll-margin-top:' not in css, "Redundant scroll-margin-top found in CSS"
 
     # 5. Standalone redirects & Canonical resolution
     for page in ['about.html', 'menu.html', 'gallery.html', 'contact.html']:

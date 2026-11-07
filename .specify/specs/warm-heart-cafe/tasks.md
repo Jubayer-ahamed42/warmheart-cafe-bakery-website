@@ -1,4 +1,4 @@
-# 📋 Spec-Kit Tasks: Warm Heart Cafe and Bakery
+# Spec-Kit Tasks: Warm Heart Cafe and Bakery
 
 ## Task Checklist
 

@@ -1,4 +1,4 @@
-# 🏛️ Warm Heart Cafe and Bakery — Project Constitution
+# Warm Heart Cafe and Bakery — Project Constitution
 
 ## 1. Core Principles & Philosophy
 - **Lightweight & High Performance**: Clean vanilla web standards (HTML5 semantic markup, CSS3 custom properties & responsive grid/flexbox, Vanilla ES6+ JavaScript) without heavy framework bloat for maximum loading speed.

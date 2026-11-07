@@ -1,4 +1,4 @@
-# 📐 Technical Architecture & Implementation Plan: Warm Heart Cafe and Bakery
+# Technical Architecture & Implementation Plan: Warm Heart Cafe and Bakery
 
 ## 1. Architecture Overview
 ```mermaid
@@ -14,27 +14,27 @@ flowchart TD
 ```text
 16. WARM HEART CAFE AND BAKERY (Cafe & Bakery Web Platform)/
 ├── .specify/
-│   ├── memory/constitution.md
-│   └── specs/warm-heart-cafe/
-│       ├── spec.md
-│       ├── plan.md
-│       ├── tasks.md
-│       └── checklist.md
+│ ├── memory/constitution.md
+│ └── specs/warm-heart-cafe/
+│ ├── spec.md
+│ ├── plan.md
+│ ├── tasks.md
+│ └── checklist.md
 ├── assets/
-│   └── .aistudio/
-├── index.html       (Home & Hero)
-├── about.html       (Story & Mission)
-├── menu.html        (Categorized Drinks & Bakery)
-├── gallery.html     (Visual Grid Showcase)
-├── contact.html     (Inquiry & Form)
-├── style.css        (Shared CSS & Mobile Breakpoints)
-├── script.js        (Navigation Toggle & Form Validation)
-├── package.json     (Vite + React + Tailwind Ready)
-├── tsconfig.json    (TypeScript Configuration)
-├── vite.config.ts   (Vite Build Configuration)
-├── metadata.json    (AI Studio Project Metadata)
-├── README.md        (Documentation)
-└── run_website.bat  (1-Click Launcher)
+│ └── .aistudio/
+├── index.html (Home & Hero)
+├── about.html (Story & Mission)
+├── menu.html (Categorized Drinks & Bakery)
+├── gallery.html (Visual Grid Showcase)
+├── contact.html (Inquiry & Form)
+├── style.css (Shared CSS & Mobile Breakpoints)
+├── script.js (Navigation Toggle & Form Validation)
+├── package.json (Vite + React + Tailwind Ready)
+├── tsconfig.json (TypeScript Configuration)
+├── vite.config.ts (Vite Build Configuration)
+├── metadata.json (AI Studio Project Metadata)
+├── README.md (Documentation)
+└── run_website.bat (1-Click Launcher)
 ```
 
 ## 3. Design System & Tokens

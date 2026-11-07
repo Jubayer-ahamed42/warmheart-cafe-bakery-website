@@ -1,4 +1,4 @@
-# 📋 Feature Specification: Warm Heart Cafe and Bakery Web Experience
+# Feature Specification: Warm Heart Cafe and Bakery Web Experience
 
 ## 1. Overview
 Warm Heart Cafe and Bakery is a complete 5-page digital storefront designed for artisan bakeries and boutique cafes. It showcases freshly brewed specialty coffees, handcrafted pastries, warm bakery stories, an interactive photo gallery, and direct customer contact forms.
